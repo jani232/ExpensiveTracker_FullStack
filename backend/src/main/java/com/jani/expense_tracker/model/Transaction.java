@@ -12,6 +12,10 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Positive(message = "Amount must be greater than 0")
     private double amount;
 
@@ -21,9 +25,6 @@ public class Transaction {
     @NotBlank(message = "Category is required")
     private String category;
 
-    @NotBlank(message = "Description is required")
-    private String description;
-
     @NotBlank(message = "Date is required")
     private String date;
 
@@ -31,16 +32,20 @@ public class Transaction {
     }
 
     public Transaction(double amount, String type, String category,
-                   String description, String date) {
+                   String description, String date, User user) {
         this.amount = amount;
         this.type = type;
         this.category = category;
-        this.description = description;
         this.date = date;
+        this.user = user;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public double getAmount() {
@@ -55,9 +60,6 @@ public class Transaction {
         return category;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
     public String getDate() {
         return date;
@@ -75,11 +77,10 @@ public class Transaction {
         this.category = category;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public void setDate(String date) {
         this.date = date;
     }
+
+
 }

@@ -1,22 +1,27 @@
-import axios from "axios";
-//Instead of writing Axios requests everywhere in your React components, we keep them here.
 
+import axios from "axios";
+
+// Central location for all transaction API requests
 const API = axios.create({
-    baseURL: "http://localhost:8080/api/"
+  baseURL: "http://localhost:8080/api/transactions",
 });
 
+// Get all transactions
 export const getTransaction = () => {
-    return API.get("");
+  return API.get("");
 };
 
-export const createExpense = (expense) => {
-    return API.post("", expense);
+// Create a new transaction
+export const createTransaction = (transaction) => {
+  return API.post("", transaction);
 };
 
-export const updateExpense = (id, expense) => {
-    return API.put(`/${id}`, expense);
+// Update an existing transaction
+export const updateTransaction = (id, transaction) => {
+  return API.put(`/${id}`, transaction);
 };
 
-export const deleteExpense = (id) => {
-    return API.delete(`/${id}`);
+// Delete a transaction
+export const deleteTransaction = (id) => {
+  return API.delete(`/${id}`);
 };

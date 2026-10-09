@@ -3,14 +3,18 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './style.css';
 
+import { createTransaction } from "../api/transactionApi";
+
+
 export default function Newform() {
 
   const [value, setvalue] = useState({
     date: "",
+    user_id:"",
     type: "",
     name: "",
     category: "",
-    price: ""
+    amount: ""
   });
 
 
@@ -21,34 +25,43 @@ export default function Newform() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
 
-    const existingValue =
-      JSON.parse(localStorage.getItem("values")) || [];
-
-    const setPrice = value.type==="Income" ? Number(value.price) : -Number(value.price);
-    const newValue = {
-      ...value,
-      price:setPrice,
-      id: Date.now()
+    const transaction = {
+      user: { id: Number(value.user_id) },
+      date: value.date,
+      type: value.type,
+      category: value.category,
+      amount: Number(value.amount)
     };
 
-    const updatedValue = [...existingValue, newValue];
+  try {
+    // Send the transaction to the backend
+    const response = await createTransaction(transaction);
 
-    localStorage.setItem("values", JSON.stringify(updatedValue));
+    console.log("Saved transaction:", response.data);
 
-        console.log("Form Data:", value);  
-    alert(`Date: ${value.date}\nType: ${value.type}\nName: ${value.name}\nCategory: ${value.category}\nValue: ${newValue.price}`);
+    alert("Transaction saved successfully!");
 
+    // Clear the form after successfully saving
     setvalue({
       date: "",
+      user_id:"",
       type: "",
-      name: "",
       category: "",
-      price: ""
+      amount: ""
     });
-  };
+
+  } catch (error) {
+    console.error("Error saving transaction:", error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to save transaction. Please check your backend."
+    );
+  }
+};
 
   return (
     <div>
@@ -73,7 +86,23 @@ export default function Newform() {
                 <label>Date:</label>
 
                 <Form.Control
-                  type="date" name="date" value={value.date} onChange={handleChange}
+                  type="date"                   name="date" value={value.date} onChange={handleChange} required
+                />
+              </div>
+
+              {/* User ID */}
+              <div className="formRow">
+                <label>User ID:</label>
+
+                <Form.Control
+                  type="number"
+                  placeholder="Enter user ID"
+                  name="user_id"
+                  value={value.user_id}
+                  onChange={handleChange}
+                  min="1"
+                  step="1"
+                  required
                 />
               </div>
 
@@ -82,7 +111,7 @@ export default function Newform() {
                 <label>Type:</label>
 
                 <Form.Select
-                  name="type" value={value.type} onChange={handleChange}
+                  name="type" value={value.type} onChange={handleChange} required
                 >
                   <option value="">Select Type</option>
                   <option value="Income">Income</option>
@@ -90,18 +119,7 @@ export default function Newform() {
                 </Form.Select>
               </div>
 
-              {/* Name */}
-              <div className="formRow">
-                <label>Name :</label>
-
-                <Form.Control
-                  type="text"
-                  placeholder="Enter name"
-                  name="name"
-                  value={value.name}
-                  onChange={handleChange}
-                />
-              </div>
+  
 
               {/* Category */}
               <div className="formRow">
@@ -111,6 +129,7 @@ export default function Newform() {
                   name="category"
                   value={value.category}
                   onChange={handleChange}
+                  required
                 >
                   <option value="">Select category</option>
                   <option value="Bill">Bill</option>
@@ -128,9 +147,12 @@ export default function Newform() {
                 <Form.Control
                   type="number"
                   placeholder="Enter value"
-                  name="price"
-                  value={value.price}
+                  name="amount"
+                  value={value.amount}
                   onChange={handleChange}
+                  min="0.01"
+                  step="0.01"
+                  required
                 />
               </div>
 
