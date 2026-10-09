@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./filterstyle.css";
 
+import { getAllTransactions  } from "../api/transactionApi";
+
 export default function FilterCategory() {
   const [search, setSearch] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
@@ -9,18 +11,25 @@ export default function FilterCategory() {
   const [data, setData] = useState([]);
 
   const categories = [
-    { id: 1, name: "All", image: "https://cdn-icons-png.flaticon.com/128/3135/3135706.png" },
-    { id: 2, name: "Bill", image: "https://cdn-icons-png.flaticon.com/128/3135/3135706.png" },
-    { id: 3, name: "Food", image: "https://cdn-icons-png.flaticon.com/128/1046/1046784.png" },
-    { id: 4, name: "App", image: "https://cdn-icons-png.flaticon.com/128/888/888879.png" },
-    { id: 5, name: "Medicine", image: "https://cdn-icons-png.flaticon.com/128/2966/2966486.png" },
-    { id: 6, name: "Others", image: "https://cdn-icons-png.flaticon.com/128/565/565547.png" }
+    { id: 1, description: "All", image: "https://cdn-icons-png.flaticon.com/128/3135/3135706.png" },
+    { id: 2, description: "Bill", image: "https://cdn-icons-png.flaticon.com/128/3135/3135706.png" },
+    { id: 3, description: "Food", image: "https://cdn-icons-png.flaticon.com/128/1046/1046784.png" },
+    { id: 4, description: "App", image: "https://cdn-icons-png.flaticon.com/128/888/888879.png" },
+    { id: 5, description: "Medicine", image: "https://cdn-icons-png.flaticon.com/128/2966/2966486.png" },
+    { id: 6, description: "Others", image: "https://cdn-icons-png.flaticon.com/128/565/565547.png" }
   ];
 
-  useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("values")) || [];
-    setData(stored);
-  }, []);
+
+useEffect(() => {
+  getAllTransactions()
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      console.error("Failed to fetch transactions:", error);
+    });
+}, []);
+
 
   const filteredData = data.filter((item) => {
     const matchName = item.name
@@ -29,11 +38,17 @@ export default function FilterCategory() {
 
     const itemDate = new Date(item.date);
 
+    if (Number.isNaN(itemDate.getTime())) {
+      return false;
+    }
+
     const monthLabel = itemDate.toLocaleString("default", {
       month: "short",
     });
 
     const yearLabel = itemDate.getFullYear().toString();
+
+    
 
     const matchMonth =
       selectedMonth === "" || monthLabel === selectedMonth;
@@ -44,7 +59,7 @@ export default function FilterCategory() {
     const matchCategory =
       selectedCategory === "" || item.category === selectedCategory;
 
-    return matchName && matchMonth && matchYear && matchCategory;
+    return matchName &&matchMonth && matchYear && matchCategory;
   });
 
   return (
@@ -106,21 +121,21 @@ export default function FilterCategory() {
           <div
             key={item.id}
             className={`filtercategoryCard ${
-              selectedCategory === item.name ||
-              (selectedCategory === "" && item.name === "All")
+              selectedCategory === item.description ||
+              (selectedCategory === "" && item.description === "All")
                 ? "activeCategory"
                 : ""
             }`}
             onClick={() =>
-              setSelectedCategory(item.name === "All" ? "" : item.name)
+              setSelectedCategory(item.description === "All" ? "" : item.description)
             }
           >
             <img
               src={item.image}
-              alt={item.name}
+              alt={item.description}
               className="filtercategoryImage"
             />
-            <p>{item.name}</p>
+            <p>{item.description}</p>
           </div>
         ))}
       </div>
@@ -131,12 +146,13 @@ export default function FilterCategory() {
         <p>No data found</p>
       ) : (
         filteredData.map((item) => (
-          <div key={item.id} className="resultCard">
-            <p><b>Name:</b> {item.name}</p>
-            <p><b>Category:</b> {item.category}</p>
-            <p><b>Price:</b> {item.price}</p>
-            <p><b>Date:</b> {item.date}</p>
-          </div>
+        <div key={item.id} className="resultCard">
+          <p><b>Category:</b> {item.category}</p>
+          <p><b>Type:</b> {item.type}</p>
+          <p><b>Amount:</b> {item.amount}</p>
+          <p><b>Date:</b> {item.date}</p>
+          <p><b>Name:</b> {item.name}</p>
+        </div>
         ))
       )}
     </div>

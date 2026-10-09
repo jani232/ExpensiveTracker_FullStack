@@ -25,3 +25,6 @@ export const updateTransaction = (id, transaction) => {
 export const deleteTransaction = (id) => {
   return API.delete(`/${id}`);
 };
+
+// Get all transactions
+export const getAllTransactions = () => API.get("");

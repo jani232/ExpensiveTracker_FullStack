@@ -28,16 +28,20 @@ public class Transaction {
     @NotBlank(message = "Date is required")
     private String date;
 
+    @NotBlank (message="Name is required")
+    private String name;
+
     public Transaction() {
     }
 
     public Transaction(double amount, String type, String category,
-                   String description, String date, User user) {
+                   String description, String date, User user, String name) {
         this.amount = amount;
         this.type = type;
         this.category = category;
         this.date = date;
         this.user = user;
+        this.name = name;
     }
 
     public Long getId() {
@@ -65,6 +69,10 @@ public class Transaction {
         return date;
     }
 
+    public String getName() {
+        return name;
+    }
+    
     public void setAmount(double amount) {
         this.amount = amount;
     }
@@ -82,5 +90,10 @@ public class Transaction {
         this.date = date;
     }
 
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }

@@ -33,7 +33,8 @@ export default function Newform() {
       date: value.date,
       type: value.type,
       category: value.category,
-      amount: Number(value.amount)
+      amount: Number(value.amount),
+      name: value.name
     };
 
   try {
@@ -50,7 +51,8 @@ export default function Newform() {
       user_id:"",
       type: "",
       category: "",
-      amount: ""
+      amount: "",
+      name: ""
     });
 
   } catch (error) {
@@ -81,12 +83,27 @@ export default function Newform() {
 
             <div className='newformgrid'>
 
+              {/* Name */}
+              <div className="formRow">
+                <label>Name:</label>
+
+                <Form.Control
+                  type="text"
+                  placeholder="Enter name"
+                  name="name"
+                  value={value.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+
               {/* Date */}
               <div className="formRow">
                 <label>Date:</label>
 
                 <Form.Control
-                  type="date"                   name="date" value={value.date} onChange={handleChange} required
+                  type="date" name="date" value={value.date} onChange={handleChange} required
                 />
               </div>
 
