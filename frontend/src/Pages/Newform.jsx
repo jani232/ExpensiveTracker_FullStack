@@ -5,8 +5,15 @@ import './style.css';
 
 import { createTransaction } from "../api/transactionApi";
 
+const getLocalDateString = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
 
 export default function Newform() {
+  const today = getLocalDateString(new Date());
 
   const [value, setvalue] = useState({
     date: "",
@@ -27,6 +34,11 @@ export default function Newform() {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
+
+    if (value.date > today) {
+      alert("Date cannot be in the future.");
+      return;
+    }
 
     const transaction = {
       user: { id: Number(value.user_id) },
@@ -83,30 +95,6 @@ export default function Newform() {
 
             <div className='newformgrid'>
 
-              {/* Name */}
-              <div className="formRow">
-                <label>Name:</label>
-
-                <Form.Control
-                  type="text"
-                  placeholder="Enter name"
-                  name="name"
-                  value={value.name}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-
-              {/* Date */}
-              <div className="formRow">
-                <label>Date:</label>
-
-                <Form.Control
-                  type="date" name="date" value={value.date} onChange={handleChange} required
-                />
-              </div>
-
               {/* User ID */}
               <div className="formRow">
                 <label>User ID:</label>
@@ -123,6 +111,20 @@ export default function Newform() {
                 />
               </div>
 
+              {/* Date */}
+              <div className="formRow">
+                <label>Date:</label>
+
+                <Form.Control
+                  type="date"
+                  name="date"
+                  value={value.date}
+                  onChange={handleChange}
+                  max={today}
+                  required
+                />
+              </div>
+
               {/* Type */}
               <div className="formRow">
                 <label>Type:</label>
@@ -135,6 +137,24 @@ export default function Newform() {
                   <option value="Expense">Expense</option>
                 </Form.Select>
               </div>
+
+
+              {/* Name */}
+              <div className="formRow">
+                <label>Name:</label>
+
+                <Form.Control
+                  type="text"
+                  placeholder="Enter name of the transaction"
+                  name="name"
+                  value={value.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+
+
 
   
 

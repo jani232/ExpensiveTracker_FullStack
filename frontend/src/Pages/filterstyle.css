@@ -281,6 +281,62 @@
       font-weight: 500;
     }
 
+
+    .actionButtons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.actionButtons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.actionButtons button:first-child {
+  background-color: #1F4E79;
+  color: white;
+}
+
+.actionButtons button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+
+.actionButtons button:hover {
+  opacity: 0.85;
+}
+
+
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 450px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background: #f5f7fa;
+}
+
+.editForm input,
+.editForm select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.editForm button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
     /* RESPONSIVE */
     @media (max-width: 1000px) {
       .resultsContainer {
