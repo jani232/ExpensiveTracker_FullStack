@@ -1,0 +1,326 @@
+
+
+    /* main card – glassmorphism */
+    .pageContainer {
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      border-radius: 40px;
+      padding: 32px 28px;
+      box-shadow: 0 20px 50px rgba(13, 58, 103, 0.12), 0 8px 20px rgba(0, 20, 40, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: all 0.2s ease;
+    }
+
+    /* FILTER CONTAINER – subtle depth */
+    .filterContainer {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 32px;
+      padding: 24px 24px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.6);
+    }
+
+    /* TOP FILTER ROW – more spacing, modern */
+    .topFilters {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    /* FILTER BOX – clean, elevated */
+    .filterBox {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 200px;
+      min-width: 180px;
+    }
+
+    .filterBox p {
+      margin: 0 0 8px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: #1a2c44;
+      opacity: 0.7;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .filterBox p i {
+      font-size: 0.9rem;
+      color: #0d3a67;
+      opacity: 0.7;
+    }
+
+    .filterBox input,
+    .filterBox select {
+      padding: 12px 16px;
+      border-radius: 60px;
+      border: 1px solid rgba(13, 58, 103, 0.15);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #122b44;
+      outline: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 6px rgba(0, 20, 30, 0.02);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .filterBox input::placeholder {
+      color: #7b8ba3;
+      font-weight: 400;
+    }
+
+    .filterBox input:focus,
+    .filterBox select:focus {
+      border-color: #0d3a67;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 14px rgba(13, 58, 103, 0.12), 0 0 0 4px rgba(13, 58, 103, 0.06);
+      transform: scale(1.01);
+    }
+
+    /* Category title */
+    .categoryTitle {
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #1a2c44;
+      opacity: 0.6;
+      margin: 12px 0 16px 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .categoryTitle i {
+      color: #0d3a67;
+      opacity: 0.7;
+    }
+
+    /* CATEGORY ROW – modern scroll */
+    .filtercategoryRow {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding: 6px 4px 16px;
+      scrollbar-width: thin;
+      scrollbar-color: #b0c6dd #eef3fc;
+      justify-content: center;
+      flex-wrap: nowrap;
+    }
+
+    .filtercategoryRow::-webkit-scrollbar {
+      height: 5px;
+    }
+
+    .filtercategoryRow::-webkit-scrollbar-track {
+      background: #eef3fc;
+      border-radius: 20px;
+    }
+
+    .filtercategoryRow::-webkit-scrollbar-thumb {
+      background: #b0c6dd;
+      border-radius: 20px;
+    }
+
+    /* CATEGORY CARD – glassy, elevated */
+    .filtercategoryCard {
+      min-width: 88px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+      padding: 8px 4px;
+      border-radius: 40px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      border: 1px solid transparent;
+    }
+
+    .filtercategoryCard:hover {
+      transform: translateY(-4px) scale(1.02);
+      background: rgba(255, 255, 255, 0.4);
+      border-color: rgba(13, 58, 103, 0.1);
+    }
+
+    .filtercategoryImage {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: white;
+      padding: 10px;
+      box-shadow: 0 8px 18px rgba(13, 58, 103, 0.06), 0 2px 6px rgba(0,0,0,0.02);
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      transition: all 0.25s ease;
+      display: block;
+      margin: 0 auto 6px;
+    }
+
+    .filtercategoryCard p {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #1f3b57;
+      margin-top: 4px;
+      letter-spacing: -0.2px;
+      transition: 0.2s;
+    }
+
+    /* ACTIVE CATEGORY – bold, modern */
+    .activeCategory {
+      background: rgba(13, 58, 103, 0.06);
+      border-radius: 60px;
+      border: 1px solid rgba(13, 58, 103, 0.2);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 6px 16px rgba(13, 58, 103, 0.06);
+    }
+
+    .activeCategory .filtercategoryImage {
+      border: 3px solid #0d3a67;
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(13, 58, 103, 0.15);
+      background: #ffffff;
+    }
+
+    .activeCategory p {
+      font-weight: 700;
+      color: #0d3a67;
+    }
+
+    /* RESULTS GRID – 3 per row, elevated cards */
+    .resultsContainer {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    /* RESULT CARD – modern glass */
+    .resultCard {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 18px 22px;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 8px 24px rgba(0, 20, 40, 0.04), 0 2px 6px rgba(0,0,0,0.02);
+      transition: all 0.25s ease;
+      border-left: 6px solid #0d3a67;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .resultCard::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(13, 58, 103, 0.02), transparent 60%);
+      pointer-events: none;
+    }
+
+    .resultCard:hover {
+      transform: translateY(-6px) scale(1.01);
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 18px 36px rgba(13, 58, 103, 0.07), 0 6px 14px rgba(0, 0, 0, 0.02);
+      border-color: rgba(13, 58, 103, 0.15);
+    }
+
+    .resultCard p {
+      margin: 6px 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #1f334a;
+      letter-spacing: -0.2px;
+    }
+
+    .resultCard p b {
+      font-weight: 600;
+      color: #0d2d4a;
+      min-width: 70px;
+      opacity: 0.7;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .resultCard p i {
+      color: #0d3a67;
+      opacity: 0.5;
+      width: 18px;
+      font-size: 0.8rem;
+    }
+
+    .noData {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 1rem;
+      color: #3b5a78;
+      background: rgba(255,255,255,0.3);
+      backdrop-filter: blur(4px);
+      border-radius: 60px;
+      border: 1px dashed rgba(13, 58, 103, 0.2);
+      font-weight: 500;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1000px) {
+      .resultsContainer {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .pageContainer {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .resultsContainer {
+        grid-template-columns: 1fr;
+      }
+      .topFilters {
+        gap: 16px;
+      }
+      .filterBox {
+        flex: 1 1 100%;
+        min-width: 140px;
+      }
+      .filtercategoryCard {
+        min-width: 74px;
+      }
+      .filtercategoryImage {
+        width: 60px;
+        height: 60px;
+        padding: 8px;
+      }
+      .pageContainer {
+        padding: 16px;
+        border-radius: 28px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .filterContainer {
+        padding: 16px;
+      }
+      .resultCard {
+        padding: 14px 18px;
+      }
+    }
